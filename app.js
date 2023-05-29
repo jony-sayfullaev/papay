@@ -3,8 +3,6 @@ const express = require("express");
 const app = express();
 const router = require("./router");
 // MongoDB connect
-const db = require("./server").db();
-const mongodb = require("mongodb");
 
 //1. Entry
 app.use(express.static("public"));
@@ -17,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", "views");
 app.set("views engine", "ejs");
 // Routing
+// app.use("/resto", router_bssr);
 app.use("/", router);
 
 module.exports = app;

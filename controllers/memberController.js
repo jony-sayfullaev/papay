@@ -1,13 +1,14 @@
 let memberController = module.exports;
 
-memberController.home = (req, res) => {
-  console.log("GET cont.home");
-  res.send("Home Page");
-};
-
 memberController.signup = (req, res) => {
-  console.log("POST cont.signup");
-  res.send("Sign Up Page");
+  try {
+    console.log("POST: cont/signup");
+    const data = req.body;
+    console.log("body_data", data);
+    res.send("done");
+  } catch (err) {
+    console.log(`ERROR: cont/signup`);
+  }
 };
 
 memberController.login = (req, res) => {
