@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const memeberController = require("./controllers/memberController");
+// member
+router.get("/", memeberController.home);
+router.post("/signup", memeberController.signup);
+router.post("/login", memeberController.login);
+router.get("/logout", memeberController.logout);
 
-router.get("/", (req, res) => {
-  res.send("Main page");
-});
-
+// others
 router.get("/menu", (req, res) => {
   res.send("Menu Page");
 });
