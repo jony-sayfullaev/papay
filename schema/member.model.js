@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
-const { member_type_enum, member_status_enum } = require("../lib/config");
+const {
+  member_type_enum,
+  member_status_enum,
+  ordenary_enums,
+} = require("../lib/config");
 
 const memberSchema = new mongoose.Schema({
   mb_nick: {
@@ -34,11 +38,11 @@ const memberSchema = new mongoose.Schema({
       message: "{VALUES} is not among permitted",
     },
   },
-  mb_full_name: {
+  mb_address: {
     type: String,
     required: false,
   },
-  mb_address: {
+  mb_description: {
     type: String,
     required: false,
   },
@@ -49,7 +53,38 @@ const memberSchema = new mongoose.Schema({
   mb_point: {
     type: Number,
     required: false,
+    default: 0,
   },
+  mb_top: {
+    type: String,
+    required: false,
+    default: "N",
+    enum: {
+      values: ordenary_enums,
+      message: "{VALUES} is not among permitted",
+    },
+  },
+  mb_views: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  mb_like: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  mb_follow_cnt: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  mb_subscriber: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  timestamps: true,
 });
 
 module.exports = mongoose.model("Member", memberSchema);
