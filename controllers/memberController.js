@@ -21,9 +21,9 @@ memberController.signup = async (req, res) => {
 memberController.login = async (req, res) => {
   console.log("POST cont.login");
   try {
-    const data = req.body;
-    const member = new Member();
-    const result = await member.loginData(data);
+    const data = req.body,
+      member = new Member(),
+      result = await member.loginData(data);
     res.json({ state: "succeed", data: result });
   } catch (err) {
     console.log(`ERROR: cont/signup ${err.message}`);
