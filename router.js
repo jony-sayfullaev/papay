@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const memeberController = require("./controllers/memberController");
+
+/**************************
+ *        REST API        *
+ * ************************/
+
 // member
 // router.get("/", memeberController);
 router.post("/signup", memeberController.signup);

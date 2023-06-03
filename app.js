@@ -1,7 +1,8 @@
 console.log("Web Server boshlash");
 const express = require("express");
 const app = express();
-const router = require("./router");
+const router = require("./router.js");
+const router_bssr = require("./router_bssr.js");
 // MongoDB connect
 
 //1. Entry
@@ -15,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", "views");
 app.set("views engine", "ejs");
 // Routing
-// app.use("/resto", router_bssr);
+app.use("/resto", router_bssr);
 app.use("/", router);
 
 module.exports = app;
