@@ -3,8 +3,9 @@ const Member = require("../models/Member");
 let restaurantController = module.exports;
 
 restaurantController.getSignUpMyRestaurant = async (req, res) => {
-  res.render("signup.ejs");
   try {
+    console.log("GET: controller/signup");
+    res.render("signup.ejs");
   } catch (err) {
     console.log(`ERROR: cont/signup ${err.message}`);
     res.json({
@@ -16,10 +17,12 @@ restaurantController.getSignUpMyRestaurant = async (req, res) => {
 
 restaurantController.signupProcess = async (req, res) => {
   try {
-    console.log("POST: cont/signup");
+    console.log("POST: controller/signup");
     const data = req.body;
     const member = new Member();
     const new_member = await member.signupData(data);
+
+    // SESSION
     res.json({ state: "succeed", data: new_member });
   } catch (err) {
     console.log(`ERROR: cont/signup ${err.message}`);
@@ -31,8 +34,9 @@ restaurantController.signupProcess = async (req, res) => {
 };
 
 restaurantController.getLoginMyRestaurant = async (req, res) => {
-  res.render("login-page");
   try {
+    console.log("GET: controller/login");
+    res.render("login-page.ejs");
   } catch (err) {
     console.log(`ERROR: cont/signup ${err.message}`);
     res.json({
@@ -50,7 +54,7 @@ restaurantController.loginProcess = async (req, res) => {
       result = await member.loginData(data);
     res.json({ state: "succeed", data: result });
   } catch (err) {
-    console.log(`ERROR: cont/signup ${err.message}`);
+    console.log(`ERROR: controller/signup ${err.message}`);
     res.json({
       state: "fail",
       message: err.message,
@@ -59,6 +63,6 @@ restaurantController.loginProcess = async (req, res) => {
 };
 
 restaurantController.logout = (req, res) => {
-  console.log("GET cont.logout");
+  console.log("GET controller/logout");
   res.send("Logout Page");
 };
