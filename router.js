@@ -7,7 +7,6 @@ const memeberController = require("./controllers/memberController");
  * ************************/
 
 // member
-// router.get("/", memeberController);
 router.post("/signup", memeberController.signup);
 router.post("/login", memeberController.login);
 router.get("/logout", memeberController.logout);
