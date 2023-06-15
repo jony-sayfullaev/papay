@@ -9,6 +9,8 @@ const uploader_product = require("./utils/upload-multer")("products");
  *        REST API        *
  * ************************/
 
+router_bssr.get("/", restaurantController.home);
+
 // member route
 router_bssr
   .get("/signup", restaurantController.getSignUpMyRestaurant)

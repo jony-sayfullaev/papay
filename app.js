@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
 
 // Views
 app.set("views", "views");
-app.set("views engine", "ejs");
+app.set("view engine", "ejs");
 // Routing
 app.use("/resto", router_bssr);
 app.use("/", router);
