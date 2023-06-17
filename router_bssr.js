@@ -4,6 +4,7 @@ const restaurantController = require("./controllers/restaurantController");
 const { router } = require("./app");
 const productController = require("./controllers/productController");
 const uploader_product = require("./utils/upload-multer")("products");
+const uploader_members = require("./utils/upload-multer")("members");
 
 /**************************
  *        REST API        *
@@ -13,8 +14,12 @@ router_bssr.get("/", restaurantController.home);
 
 // member route
 router_bssr
-  .get("/signup", restaurantController.getSignUpMyRestaurant)
-  .post("/signup", restaurantController.signupProcess);
+  .get("/sign-up", restaurantController.getSignUpMyRestaurant)
+  .post(
+    "/sign-up",
+    uploader_members.single("restaurant_img"),
+    restaurantController.signupProcess
+  );
 
 router_bssr
   .get("/login", restaurantController.getLoginMyRestaurant)

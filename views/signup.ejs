@@ -1,7 +1,7 @@
 <%- include("includes/header" ) %>
 <link rel="stylesheet" href="/css/login.css" type="text/css">
 <body>
-  <form class="login_container" action="/resto/sign-up" method="POST" enctype="multipart/form-data">
+  <form class="login_container" action="/resto/sign-up" method="POST" enctype="multipart/form-data" onsubmit="return validateSignUpForm()">
       
    <div class="login_frame" style="width: 650px; height: 730px;">
 
@@ -16,12 +16,12 @@
          <div class="sign_input_frame">
             <div class="sign_up_frame">
                <label>Foydalanuvchining ismi</label>
-               <input type="text" name="mb_nick" placeholder="Foydalanuvchining ismi" value="" required>
+               <input type="text" name="mb_nick"  class="mb_nick" required  placeholder="Foydalanuvchining ismi" value="">
             </div>
 
             <div class="sign_up_frame">
                <label>Telefon raqam</label>
-               <input type="text" name="mb_phone" placeholder="Telefon raqam" value="" required>
+               <input type="text" name="mb_phone"  class="mb_phone" required placeholder="Telefon raqam" value="" >
             </div>
          </div>
 
@@ -29,12 +29,12 @@
          <div class="sign_input_frame">
             <div class="sign_up_frame">
                <label>Password</label>
-               <input type="password" name="mb_password" placeholder="passwordni kiriting" value="" required>
+               <input type="password" name="mb_password"  class="mb_password" required placeholder="passwordni kiriting" value="" >
             </div>
 
             <div class="sign_up_frame">
                <label>Passwordni qayta kiriting</label>
-               <input type="password" name="mb_confirm_password" placeholder="passwordni qayta kiriting" value="" required>
+               <input type="password" name="mb_confirm_password" class="mb_confirm_password" required placeholder="passwordni qayta kiriting" value="" >
             </div>
          </div>
          
@@ -46,8 +46,8 @@
                      <span class="media_text">Taom Rasmi</span>
                      <div class="filebox bs3-primary priview-image">
                         <input class="upload-name" value="Rasmni tanlang" disabled="disabled">
-                        <label>Rasmni yuklash</label>
-                        <input type="file" id="input_file" name="restaurant_img" placeholder="file" value="" required class="upload-hidden form-control-file restaurant_img">
+                        <label for="input_file">Rasm Yuklash</label>
+                        <input type="file" id="input_file" name="restaurant_img" placeholder="file" value="" required  class="upload-hidden form-control-file restaurant_img">
                      </div>
                      <p class="thumbnail_desc">Oshhona Rasmingizni bu yerga yuklang <br>Muhim Korsatmalar; .jpg, .jpeg or png <br>rasmdan matn yo'q bo'lishi kerak</p>
                   </div>
@@ -56,6 +56,55 @@
          <button class="login_btn btn" name="signup" type="submit">Ro'yhattan O'tish</button>
       </div>
   </form>
+  <script>
+
+   $(function() {
+      let fileTarget = $(".filebox .upload-hidden");
+      let filename = '';
+      fileTarget.on("change", function() {
+         if(window.FileReader) {
+            const uploading_file = $(this)[0].files[0];
+            const fileType = uploading_file['type'];
+            const validateImageTypes = ['image/jpg', 'image/jpeg','image/png']
+            if(!validateImageTypes.includes(fileType)) {
+               alert(
+                  "Iltimos ruhsat etilgan formattagi rasmlarni yuklang: jpg, jpeg, png"
+               )
+            } else {
+               if(uploading_file) {
+                  console.log(URL.createObjectURL(uploading_file));
+                  $(".upload_img_frame").attr("src", URL.createObjectURL(uploading_file)).addClass("success")
+               }
+                filename = uploading_file.name;
+            }
+         }
+      })
+
+      $(this).siblings(".upload-name").val(filename)
+   });
+
+
+
+     function validateSignUpForm() {
+         const mb_nick = $(".mb_nick").val();
+         const mb_phone = $(".mb_phone").val();
+         const mb_password = $(".mb_password").val();
+         const mb_confirm_password = $(".mb_confirm_password").val();
+         const restaurant_img = $(".restaurant_img").get(0).files[0] ?? null;
+
+         if(mb_nick == "" || mb_phone == "" || mb_password == "" ||  mb_confirm_password == "") {
+            alert("Iltimos Hamma Malumotlarni Kiriting")
+            return false;
+         } else if (mb_password !== mb_confirm_password) {
+            alert("Iltimos Passwordni To'g'ri  Kiriting")
+         }
+
+         if(!restaurant_img) {
+            alert("Iltimos Rasmni Yuklang")
+         }
+         return true;
+     }
+</script>
 </body>
 
 
