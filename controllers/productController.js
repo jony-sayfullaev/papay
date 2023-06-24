@@ -16,6 +16,7 @@ productController.getAllProducts = async (req, res) => {
 productController.addNewProduct = async (req, res) => {
   try {
     console.log("POST: cont/addNewProduct");
+    console.log(req.files);
     assert(req.files, Definer.general_err3);
     const product = new Product();
     let data = req.body;
@@ -27,7 +28,7 @@ productController.addNewProduct = async (req, res) => {
     const result = await product.addNewProductData(data, req.member);
 
     const html = `<script>
-                  alert(new dish addedd successfully);
+                  alert('new dish addedd successfully');
                   window.location.replace("/resto/products/menu");
                   </script>`;
     res.end(html);
