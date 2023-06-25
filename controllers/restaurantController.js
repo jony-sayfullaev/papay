@@ -3,6 +3,7 @@ const Member = require("../models/Member");
 const Product = require("../models/Product");
 const { getAllProducts } = require("./productController");
 const Definer = require("../lib/mistake");
+const Restaurant = require("../models/Restaurant");
 
 let restaurantController = module.exports;
 
@@ -148,10 +149,12 @@ restaurantController.validateAdmin = (req, res, next) => {
   }
 };
 
-restaurantController.getAllRestaurants = (req, res) => {
+restaurantController.getAllRestaurants = async (req, res) => {
   try {
     console.log("GET cont/getAllRestaurants");
-    res.render("all-restaurant.ejs");
+    const restaurant = new Restaurant();
+    const restaurant_data = await restaurant.getAllRestaurantsData();
+    res.render("all-restaurant.ejs", { restaurants_data: restaurant_data });
   } catch (err) {
     console.log(`ERROR: controller/getAllRestaurants ${err.message}`);
     res.json({
